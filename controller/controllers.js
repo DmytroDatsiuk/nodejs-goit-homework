@@ -10,8 +10,9 @@ const { HttpError } = require("../utils/HttpError");
 const controllerWrapper = require("../utils/controllerWrapper");
 
 let getContacts = async (req, res, next) => {
-  const { page = 1, limit = 10, favorite } = req.query;
-  const contacts = await listContactsService(page, limit, favorite);
+  const { _id: owner } = req.user;
+  const { page = 1, limit = 20, favorite } = req.query;
+  const contacts = await listContactsService(page, limit, favorite, owner);
   res.status(200).json(contacts);
 };
 
@@ -25,8 +26,9 @@ const getContactById = controllerWrapper(async (req, res) => {
 });
 
 const createContact = controllerWrapper(async (req, res) => {
-  const body = req.body;
-  const newContact = await addContactService(body);
+  // console.log(req.user);
+  const { _id: owner } = req.user;
+  const newContact = await addContactService({ ...req.body, owner });
   return res.status(201).json(newContact);
 });
 

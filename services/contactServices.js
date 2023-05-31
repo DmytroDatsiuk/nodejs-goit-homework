@@ -1,7 +1,7 @@
 const Contacts = require("../models/contacts");
 const { HttpError } = require("../utils/HttpError");
 
-const listContactsService = async (page, limit, favorite) => {
+const listContactsService = async (page, limit, favorite, owner) => {
   const skip = (page - 1) * limit;
   const filter = {};
   if (favorite === "true") {
@@ -9,7 +9,10 @@ const listContactsService = async (page, limit, favorite) => {
   } else if (favorite === "false") {
     filter.favorite = false;
   }
-  return await Contacts.find(filter).limit(limit).skip(skip);
+  return await Contacts.find({ owner }, filter)
+    .populate("owner", "email name")
+    .limit(limit)
+    .skip(skip);
 };
 
 const getContactsByIdService = async (contactId) => {
