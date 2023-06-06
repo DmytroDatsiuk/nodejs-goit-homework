@@ -1,9 +1,5 @@
 const mongoose = require("mongoose");
 
-const Joi = require("joi");
-
-const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
 const userSchema = new mongoose.Schema(
   {
     password: {
@@ -17,12 +13,16 @@ const userSchema = new mongoose.Schema(
     },
     subscription: {
       type: String,
-        enum: ["starter", "pro", "business"],
+      enum: ["starter", "pro", "business"],
       default: "starter",
     },
     token: {
       type: String,
       default: "",
+    },
+    avatarURL: {
+      type: String,
+      //   required: true,
     },
   },
   {
@@ -31,22 +31,6 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-const userRegisterSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().pattern(emailRegexp).required(),
-  password: Joi.string().min(6).required(),
-});
-
-const userLoginSchema = Joi.object({
-  email: Joi.string().pattern(emailRegexp).required(),
-  password: Joi.string().min(6).required(),
-});
-
-const schemas = {
-  userRegisterSchema,
-  userLoginSchema,
-};
-
 const User = mongoose.model("user", userSchema);
 
-module.exports = { User, schemas };
+module.exports = { User };
