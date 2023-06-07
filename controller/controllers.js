@@ -26,7 +26,6 @@ const getContactById = controllerWrapper(async (req, res) => {
 });
 
 const createContact = controllerWrapper(async (req, res) => {
-  // console.log(req.user);
   const { _id: owner } = req.user;
   const newContact = await addContactService({ ...req.body, owner });
   return res.status(201).json(newContact);
