@@ -3,7 +3,6 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const { contactRouter } = require("./routes/api/contacts");
-// const { globalErrorHandler } = require("./middlewares/globalErrorHandler");
 const logger = require("morgan");
 const cors = require("cors");
 
@@ -24,8 +23,8 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  const { statusCode = 500, message = "Server error" } = err;
-  res.status(statusCode).json({ message });
+  const { status = 500, message = "Server error" } = err;
+  res.status(status).json({ message });
 });
 
 module.exports = app;

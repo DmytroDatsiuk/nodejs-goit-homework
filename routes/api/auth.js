@@ -12,6 +12,7 @@ const { validateBody } = require("../../utils/validateBody");
 
 const {
   userRegisterSchema,
+  userEmailSchema,
   userLoginSchema,
 } = require("../../utils/validation/userValidationSchemas");
 
@@ -21,6 +22,15 @@ router.post(
   validateBody(userRegisterSchema),
   AuthController.register
 );
+
+router.get("/verify/:verificationToken", AuthController.verify);
+
+router.post(
+  "/verify",
+  validateBody(userEmailSchema),
+  AuthController.resendVerifyEmail
+);
+
 router.post(
   "/login",
   jsonParser,

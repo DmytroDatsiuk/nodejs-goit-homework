@@ -1,5 +1,5 @@
 const { User } = require("../models/user");
-const { HttpError } = require("../utils/HttpError");
+const HttpError = require("../utils/HttpError");
 
 const updateUserSubscriptionService = async (contactID, body) => {
   const sibscription = await User.findByIdAndUpdate(contactID, body, {

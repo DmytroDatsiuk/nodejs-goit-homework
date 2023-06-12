@@ -5,7 +5,7 @@ const {
   addContactService,
   updateContactService,
 } = require("../services/contactServices");
-const { HttpError } = require("../utils/HttpError");
+const HttpError = require("../utils/HttpError");
 
 const controllerWrapper = require("../utils/controllerWrapper");
 
