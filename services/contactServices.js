@@ -1,5 +1,5 @@
 const Contacts = require("../models/contacts");
-const { HttpError } = require("../utils/HttpError");
+const HttpError = require("../utils/HttpError");
 
 const listContactsService = async (page, limit, favorite, owner) => {
   const skip = (page - 1) * limit;
